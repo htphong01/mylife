@@ -21,7 +21,7 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
+        {{-- <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
@@ -127,6 +127,22 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
+        <pre>
+            Bước 1: Tìm ở ô tìm kiếm window: Gõ Ubuntu, rồi bật lên
+            Bước 2: Copy dòng này, rồi click chuột phải vào Ubuntu(Paste) sau đó nhấn Enter
+            sudo apt-get install mysql-server mysql-client libmysqlclient-dev
+            Bước 3: Tương tự như trên với các dòng lệnh sau (thực hiện từng dòng lệnh)
+            cd /mnt/c
+            mkdir -p code
+            
+            Bước 4: Vào ổ đĩa C tìm thư mục code, click chuột phải, qua tab security, rồi chọn Edit, tick ở ổ Allow dòng Full Control sau đó nhấn ok
+            Bước 5: Copy dòng này, rồi click chuột phải vào Ubuntu(Paste) sau đó nhấn Enter (thực hiện từng dòng lệnh)
+            rails new myapp -d mysql
+            cd myapp
+            rake db:create (hiện lỗi)
+            rails server (hiện lỗi)
+
+        </pre>
     </body>
 </html>
