@@ -75,6 +75,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
+            'name' => $req->name,
             'photo' => $photo
         ]);
     }
