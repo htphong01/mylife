@@ -25,7 +25,7 @@ class JWTMiddleware
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
-                'message' => $th
+                'message' => "Fail in login"
             ]);
         }
         return response()->json([
