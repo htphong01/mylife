@@ -19,7 +19,7 @@ use Illuminate\Auth\Middleware;
 Route::post('login', 'App\Http\Controllers\Api\AuthController@login');
 Route::post('register', 'App\Http\Controllers\Api\AuthController@register');
 Route::get('logout', 'App\Http\Controllers\Api\AuthController@logout');
-Route::post('save-user-infor', 'App\Http\Controllers\Api\AuthController@saveUserInfor')->middleware('jwtAuth');
+Route::post('save-user-infor', 'App\Http\Controllers\Api\AuthController@saveUserInfor');
 
 //posts
 Route::post('posts', 'App\Http\Controllers\Api\PostsController@store')->middleware('jwtAuth');
