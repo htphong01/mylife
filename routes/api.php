@@ -22,7 +22,7 @@ Route::get('logout', 'App\Http\Controllers\Api\AuthController@logout');
 Route::post('save-user-infor', 'App\Http\Controllers\Api\AuthController@saveUserInfor');
 
 //posts
-Route::post('posts', 'App\Http\Controllers\Api\PostsController@store');
+Route::post('posts', 'App\Http\Controllers\Api\PostsController@store')->middleware('jwtAuth');
 Route::delete('posts/{id}', 'App\Http\Controllers\Api\PostsController@destroy')->middleware('jwtAuth');
 Route::put('posts/{id}', 'App\Http\Controllers\Api\PostsController@update')->middleware('jwtAuth');
 Route::get('posts', 'App\Http\Controllers\Api\PostsController@posts');
