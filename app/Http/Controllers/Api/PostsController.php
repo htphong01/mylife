@@ -18,14 +18,14 @@ class PostsController extends Controller
         // check if post has photo
         if($req->photo != '') {
             // choose a unique name for photo   
-            $photo = time(). '.jpg';
-            file_put_contents('storage/posts/' .$photo, base64_decode($req->photo));
-            $post->photo = $photo;
-            // $image = $req->photo;  // your base64 encoded
-            // $image = str_replace('data:image/png;base64,', '', $image);
-            // $image = str_replace(' ', '+', $image);
-            // $imageName = time() .'.' .'png';
-            // \File::put('storage/posts/' .$imageName, base64_decode($image));
+            // $photo = time(). '.jpg';
+            // file_put_contents('storage/posts/' .$photo, base64_decode($req->photo));
+            // $post->photo = $photo;
+            $image = str_replace('data:image/jpeg;base64,', '', $req->photo);
+            $image = str_replace(' ', '+', $image);
+            $imageName = time().'.'.'jpg';
+            \File::put(storage_path(). '/' . $imageName, base64_decode($image));
+            $post->photo = $imageName;
         }
 
         $post->save();
@@ -34,7 +34,8 @@ class PostsController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'posted',
-                'post' => $post
+                'post' => $post,
+                'photo' => $post->photo
             ]);
         }
 
