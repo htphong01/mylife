@@ -30,10 +30,17 @@ class PostsController extends Controller
 
         $post->save();
         $post->user;
+        if($post->photo != '') {
+            return response()->json([
+                'success' => true,
+                'message' => 'posted',
+                'post' => $post
+            ]);
+        }
+
         return response()->json([
-            'success' => true,
-            'message' => 'posted',
-            'post' => $post
+            'success' => false,
+            'message' => 'fail',
         ]);
     }
 
