@@ -9,6 +9,7 @@ use Auth;
 use Hash;
 use Exception;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -33,6 +34,7 @@ class AuthController extends Controller
         $user = new User;
         try {
             $user->email = $req->email;
+            $user->name = $req->email;
             $user->password = $encryptedPass;
             $user->save();
             return $this->login($req);
@@ -65,10 +67,11 @@ class AuthController extends Controller
         $user->name = $req->name;
         $photo = '';
         if($req->photo != '') {
-            $photo = time() . '.jpg';
-            //decode photo 
-            file_put_contents('storage/profiles/' .$photo, base64_decode($req->photo));
-            $user->avatar = $photo;
+            $image = str_replace('data:image/jpeg;base64,', '', $req->photo);
+            $image = str_replace(' ', '+', $image);
+            $imageName = time().'.'.'jpg';
+            Storage::disk('store_profile')->put($imageName, base64_decode($image));
+            $user->avatar = $imageName;
         }
 
         $user->save();

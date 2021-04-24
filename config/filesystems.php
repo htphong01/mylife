@@ -34,6 +34,11 @@ return [
             'root' => public_path() .'/store/posts',
         ],
 
+        'store_profile' => [
+            'driver' => 'local',
+            'root' => public_path() .'/store/profiles',
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
