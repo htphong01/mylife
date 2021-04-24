@@ -27,7 +27,7 @@ class PostsController extends Controller
             $imageName = time().'.'.'jpg';
             // \File::put(storage_path() .'/app/public/posts/' . $imageName, base64_decode($image));
             Storage::disk('store_post')->put($imageName, base64_decode($image));
-            $post->photo = $imageName;
+            $post->photo = '/store/posts' .$imageName;
             
         }
 
