@@ -68,7 +68,7 @@ class AuthController extends Controller
             $photo = time() . '.jpg';
             //decode photo 
             file_put_contents('storage/profiles/' .$photo, base64_decode($req->photo));
-            $user->photo = $photo;
+            $user->avatar = $photo;
         }
 
         $user->save();
