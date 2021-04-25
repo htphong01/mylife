@@ -48,6 +48,7 @@ class AuthController extends Controller
 
     public function logout(Request $req) {
         try {
+            
             JWTAuth::invalidate(JWTAuth::parseToken($req->token));
             return response()->json([
                 'success' => true,
