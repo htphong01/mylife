@@ -20,6 +20,8 @@ Route::post('login', 'App\Http\Controllers\Api\AuthController@login');
 Route::post('register', 'App\Http\Controllers\Api\AuthController@register');
 Route::get('logout', 'App\Http\Controllers\Api\AuthController@logout');
 Route::post('save-user-infor', 'App\Http\Controllers\Api\AuthController@saveUserInfor');
+Route::get('search/user', 'App\Http\Controllers\Api\AuthController@search');
+Route::get('get/user', 'App\Http\Controllers\Api\AuthController@getUser');
 
 //posts
 Route::post('post', 'App\Http\Controllers\Api\PostsController@store')->middleware('jwtAuth');

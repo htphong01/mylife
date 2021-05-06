@@ -13,16 +13,16 @@ class CreateUserInforTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_infor', function (Blueprint $table) {
+        Schema::create('user_infors', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->date('dateOfBirth')->default(null);
-            $table->integer('gender')->default('1');
-            $table->string('address')->default(null);
-            $table->string('education')->default(null);
-            $table->string('work')->default(null);
-            $table->string('phoneNumber')->default(null);
-            $table->integer('relationship')->default(null);
+            $table->date('dateOfBirth')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('address')->nullable();
+            $table->string('education')->nullable();
+            $table->string('work')->nullable();
+            $table->string('phoneNumber')->nullable();
+            $table->integer('relationship')->nullable();
             $table->timestamps();
         });
     }

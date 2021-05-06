@@ -17,7 +17,7 @@ class CreateHelpsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('content');
-            $table->integer('status')->default('1');
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }
