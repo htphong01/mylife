@@ -16,6 +16,7 @@ class CreateRoomsTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->default('');
+            $table->string('type')->default('individual');
             $table->timestamps();
         });
     }

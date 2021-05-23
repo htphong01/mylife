@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Models\Post;
 use Auth;
 
 class CommentsController extends Controller
@@ -26,6 +27,18 @@ class CommentsController extends Controller
         ]);
     }
 
+    public function commentPost(Request $req) {
+        $comments = Comment::where('post_id', $req->post_id)->get();
+        foreach($comments as $comment){
+            $comment->user;
+        }
+
+        return response()->json([
+            'success' => true,
+            'comments' => $comments
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -39,6 +52,8 @@ class CommentsController extends Controller
         $comment->post_id = $request->post_id;
         $comment->comment = $request->comment;
         $comment->save();
+        $post = Post::find($request->post_id);
+        createNotification(2, $post->user_id);
         return response()->json([
             'success' => true,
             'message' => 'comment added'
@@ -53,10 +68,14 @@ class CommentsController extends Controller
      */
     public function show($id)
     {
-        $comment = Comment::find($id);
+        $comments = Comment::where('id', $id)->get();
+        foreach($comments as $comment){
+            $comment->user;
+        }
+
         return response()->json([
             'success' => true,
-            'comment' => $comment
+            'comments' => $comments
         ]);
     }
 

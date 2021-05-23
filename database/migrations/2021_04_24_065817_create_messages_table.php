@@ -18,6 +18,8 @@ class CreateMessagesTable extends Migration
             $table->integer('room_id');
             $table->integer('user_id');
             $table->string('message');
+            $table->string('type')->default('text');
+            $table->integer('status');
             $table->timestamps();
         });
     }

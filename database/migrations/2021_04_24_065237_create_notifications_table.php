@@ -18,7 +18,8 @@ class CreateNotificationsTable extends Migration
             $table->integer('sender_id');
             $table->string('content');
             $table->integer('receiver_id');
-            $table->integer('entity_id');
+            $table->string('link');
+            $table->string('image');
             $table->integer('type');
             $table->timestamps();
         });

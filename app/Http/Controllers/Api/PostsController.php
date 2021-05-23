@@ -18,16 +18,12 @@ class PostsController extends Controller
 
         // check if post has photo
         if($req->photo != '') {
-            // choose a unique name for photo   
-            // $photo = time(). '.jpg';
-            // file_put_contents('storage/posts/' .$photo, base64_decode($req->photo));
-            // $post->photo = $photo;
             $image = str_replace('data:image/jpeg;base64,', '', $req->photo);
             $image = str_replace(' ', '+', $image);
             $imageName = time().'.'.'jpg';
             // \File::put(storage_path() .'/app/public/posts/' . $imageName, base64_decode($image));
             Storage::disk('store_post')->put($imageName, base64_decode($image));
-            $post->photo = $imageName;
+            $post->photo = 'store/posts/' .$imageName;
             
         }
 
@@ -66,6 +62,31 @@ class PostsController extends Controller
         ]);
     }
 
+    public function show($id) {
+        $posts = Post::where('id', $id)->get();
+        
+        foreach($posts as $post) {
+            // get user of post
+            $post->user;
+            //comment count
+            $post['commentsCount'] = count($post->comments);
+            //likes count
+            $post['likesCount'] = count($post->likes);
+            // check if user like his own post
+            $post['selfLike'] = false;
+            foreach($post->likes as $like) {
+                if($like->user_id == Auth::user()->id) {
+                    $post['selfLike'] = true;
+                }
+            }
+
+        }
+        return response()->json([
+            'success' => true,
+            'posts'=> $posts
+        ]);
+    }
+
     public function destroy($id) {
         $post = Post::find($id);
         if(Auth::user()->id != $post->user_id) {
@@ -77,7 +98,7 @@ class PostsController extends Controller
 
         //check if post has photo to delete
         if($post->photo != '') {
-            Storage::delete('public/posts/' .$post->photo);
+            Storage::disk('store_post')->delete('public/posts/' .$post->photo);
         }
         $post->delete();
         return response()->json([
@@ -86,8 +107,14 @@ class PostsController extends Controller
         ]);
     }
 
-    public function posts() {
-        $posts = Post::orderBy('id', 'desc')->get();
+    public function index(Request $req) {
+        $user = $req->input('user');
+        if($user == 'all' || $user == '') {
+            $posts = Post::orderBy('id', 'desc')->get();
+        } else {
+            $posts = Post::orderBy('id', 'desc')->where('user_id', $user)->get();
+        }
+        
         foreach($posts as $post) {
             // get user of post
             $post->user;
@@ -97,14 +124,13 @@ class PostsController extends Controller
             $post['likesCount'] = count($post->likes);
             // check if user like his own post
             $post['selfLike'] = false;
-            // foreach($post->likes as $like) {
-            //     if($like->user_id == Auth::user()->id) {
-            //         $post['selfLike'] = true;
-            //     }
-            // }
+            foreach($post->likes as $like) {
+                if($like->user_id == Auth::user()->id) {
+                    $post['selfLike'] = true;
+                }
+            }
 
         }
-
         return response()->json([
             'success' => true,
             'posts'=> $posts

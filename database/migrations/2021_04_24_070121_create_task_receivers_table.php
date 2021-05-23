@@ -16,9 +16,12 @@ class CreateTaskReceiversTable extends Migration
         Schema::create('task_receivers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('task_id');
+            $table->integer('creater_id');
             $table->integer('receiver_id');
             $table->string('content');
             $table->datetime('deadline');
+            $table->integer('isSubmitted')->default('1');
+            $table->integer('isCompleted')->default('1');
             $table->timestamps();
         });
     }

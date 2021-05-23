@@ -48,12 +48,14 @@ class LikesController extends Controller
         $like = new Like();
         $like->user_id = Auth::user()->id;
         $like->post_id = $request->post_id;
+        $post = Post::find($request->post_id);
+        createNotification(3, $post->user_id);
         $like->save();
 
         return response([
             'success' => true,
             'message' => 'liked' 
-         ]);
+        ]);
     }
 
     /**
@@ -87,6 +89,11 @@ class LikesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $like = Like::find($id);
+        $like->delete();
+        return response([
+            'success' => true,
+            'message' => 'like deleted' 
+        ]);
     }
 }

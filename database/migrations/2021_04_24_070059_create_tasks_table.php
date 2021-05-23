@@ -16,7 +16,6 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('room_id');
-            $table->integer('creater_id');
             $table->timestamps();
         });
     }

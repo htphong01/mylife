@@ -19,7 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('avatar')->default('nouser1.png');
+            $table->string('avatar')->default('store/profiles/nouser1.png');
+            $table->string('cover')->default('store/covers/default.jpg');
             $table->integer('isActive')->default('1');
             $table->rememberToken();
             $table->timestamps();
