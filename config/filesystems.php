@@ -44,6 +44,11 @@ return [
             'root' => public_path() .'/store/messages',
         ],
 
+        'store_comment' => [
+            'driver' => 'local',
+            'root' => public_path() .'/store/comments',
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

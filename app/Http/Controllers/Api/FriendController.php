@@ -59,6 +59,8 @@ class FriendController extends Controller
             $friend->user_id2 = $request->user_id2;
             $friend->save();
             createNotification(1, $request->user_id2);
+            $friend->user1 = User::find($friend->user_id1);
+            $friend->user2 = User::find($friend->user_id2);
         }
 
         return response()->json([
@@ -77,11 +79,47 @@ class FriendController extends Controller
     public function show($id)
     {
         $friend = Friend::where('id', $id)->get();
-        $friend[0]->user1_name = User::find($friend[0]->user_id1)->name;
-        $friend[0]->user2_name = User::find($friend[0]->user_id2)->name;
+        $friend[0]->user1 = User::find($friend[0]->user_id1);
+        $friend[0]->user2 = User::find($friend[0]->user_id2);
         return response()->json([
             'success' => true,
             'friend' => $friend
+        ]);
+    }
+
+    public function getFriendOfUser() {
+        $friends = Friend::where([
+                            ['user_id1', '=', Auth::user()->id],
+                            ['isAccept','=', '2']
+                            ])
+                        ->orWhere([
+                            ['user_id2', '=', Auth::user()->id],
+                            ['isAccept', '=', '2']
+                        ])
+                        ->get();
+        foreach($friends as $friend) {
+            $friend->user1 = User::find($friend->user_id1);
+            $friend->user2 = User::find($friend->user_id2);
+        }
+        return response()->json([
+            'success' => true,
+            'friends' => $friends
+        ]);
+    }
+
+    public function getFriendRequest() {
+        $friends = Friend::where([
+                            ['user_id2', '=', Auth::user()->id],
+                            ['isAccept','=', '1']
+                            ])
+                        ->get();
+        foreach($friends as $friend) {
+            $friend->user1 = User::find($friend->user_id1);
+            $friend->user2 = User::find($friend->user_id2);
+        }
+        return response()->json([
+            'success' => true,
+            'friends' => $friends
         ]);
     }
 
@@ -92,13 +130,12 @@ class FriendController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
         $friend = Friend::find($id);
+        createNotification(4, intval($friend->user_id1));
         $friend->isAccept = 2;
         $friend->save();
-        createNotification(4, $friend->user_id2);
-
         return $this->show($id);
     }
 

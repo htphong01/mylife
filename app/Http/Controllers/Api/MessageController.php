@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\Helper;
+use App\Events\RedisEvent;
 use Auth;
 use App\Models\Friend;
 use App\Models\User;
@@ -41,7 +42,8 @@ class MessageController extends Controller
         $message = new Message();
         $message->room_id = $request->room_id;
         $message->user_id = Auth::user()->id;
-        $message->status = $request->room_id;
+
+        $message->status = 1;
         if($request->type == 'text') {
             $message->message = $request->message;
         } elseif ($request->type == 'image') {
@@ -50,14 +52,19 @@ class MessageController extends Controller
             $imageName = time().'.'.'jpg';
             Storage::disk('store_message')->put($imageName, base64_decode($image));
             $message->message = 'store/messages/' .$imageName;
-            $message->type = $request->type;
         }
+        $message->type = $request->type;
         $message->save();
+        $message = Message::where('id', $message->id)->get();
+        $message[0]->nickname = Participant::where('user_id', $message[0]->user_id)->first()->nickname;
+        $message[0]->avatar = User::find($message[0]->user_id)->avatar;
+
         return response()->json([
             'success' => true,
-            'message' => $message
+            'messages' => $message
         ]);
     }
+    
 
     function createRoom($user_id) {
         $rooms = Room::join('participants', 'participants.room_id', 'rooms.id')
@@ -79,6 +86,7 @@ class MessageController extends Controller
         if(!$isHasRoom) {
             $room = new Room();
             $room->name = 'Phòng chat';
+            $room->photo = Auth::user()->avatar;
             $room->save();
 
             $participant = new Participant();
@@ -93,7 +101,7 @@ class MessageController extends Controller
             $participant1->room_id = $room->id;
             $participant1->save();
             return $room->id;
-        } 
+        }
     }
 
     /**
@@ -117,11 +125,17 @@ class MessageController extends Controller
                 $name = Room::find($room_id)->name;
                 $messages = Message::where('room_id', $room_id)->orderBy('id', 'asc')->get();
             }
+
+            foreach($messages as $message) {
+                $message->nickname = Participant::where('user_id', $message->user_id)->first()->nickname;
+                $message->avatar = User::find($message->user_id)->avatar;
+            }
     
     
             return response()->json([
                 'success' => true,
                 'name' => $name,
+                'room_id' => $room_id,
                 'messages' => $messages
             ]);
         } else {
@@ -155,5 +169,9 @@ class MessageController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function test() {
+        return view('test');
     }
 }

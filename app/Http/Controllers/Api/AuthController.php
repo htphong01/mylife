@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Auth;
 use Hash;
 use Exception;
@@ -20,17 +21,21 @@ class AuthController extends Controller
     public function login(Request $req) {
         $creds = $req->only(['email', 'password']);
 
-        if(!$token=Auth::attempt($creds)) {
+        if(!$token = Auth::attempt($creds, ['exp' => Carbon::now()->addYears(2)->timestamp])) {
             return response()->json([
                 'success' => false
             ]);
         }
 
         $postCount = Post::where('user_id', Auth::user()->id)->count();
-        $friendCount = Friend::where('user_id1', Auth::user()->id)
-                                ->orWhere('user_id2', Auth::user()->id)
-                                ->where('isAccept', 2)
-                                ->count();
+        $friendCount = $friends = Friend::where([
+                                    ['user_id1', '=', Auth::user()->id],
+                                    ['isAccept','=', '2']
+                                    ])
+                                ->orWhere([
+                                    ['user_id2', '=', Auth::user()->id],
+                                    ['isAccept', '=', '2']
+                                ])->count();
 
 
         $user = User::leftJoin('user_infors', 'users.id', 'user_infors.user_id')

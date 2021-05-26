@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Comment;
 use App\Models\Post;
 use Auth;
@@ -50,7 +51,16 @@ class CommentsController extends Controller
         $comment = new Comment();
         $comment->user_id = Auth::user()->id;
         $comment->post_id = $request->post_id;
-        $comment->comment = $request->comment;
+        if($request->type == 'text') {
+            $comment->comment = $request->comment;
+        } else if($request->type == 'image') {
+            $image = str_replace('data:image/jpeg;base64,', '', $request->comment);
+            $image = str_replace(' ', '+', $image);
+            $imageName = time().'.'.'jpg';
+            Storage::disk('store_comment')->put($imageName, base64_decode($image));
+            $comment->comment = 'store/comments/' .$imageName;
+            $comment->type = $request->type;
+        }
         $comment->save();
         $post = Post::find($request->post_id);
         createNotification(2, $post->user_id);

@@ -34,8 +34,6 @@ Route::put('posts/{id}', 'App\Http\Controllers\Api\PostsController@update')->mid
 Route::get('posts', 'App\Http\Controllers\Api\PostsController@index');
 Route::get('posts/{id}', 'App\Http\Controllers\Api\PostsController@show');
 
-
-
 //comments
 Route::post('comments', 'App\Http\Controllers\Api\CommentsController@store')->middleware('jwtAuth');
 Route::delete('comments/{id}', 'App\Http\Controllers\Api\CommentsController@destroy')->middleware('jwtAuth');
@@ -53,23 +51,35 @@ Route::get('likes/{id}', 'App\Http\Controllers\Api\LikesController@show')->middl
 
 //Friend
 Route::get('friends', 'App\Http\Controllers\Api\FriendController@index')->middleware('jwtAuth');
+Route::get('friends/user', 'App\Http\Controllers\Api\FriendController@getFriendOfUser')->middleware('jwtAuth');
+Route::get('friends/requests', 'App\Http\Controllers\Api\FriendController@getFriendRequest')->middleware('jwtAuth');
 Route::get('friends/{id}', 'App\Http\Controllers\Api\FriendController@show')->middleware('jwtAuth');
 Route::post('friends', 'App\Http\Controllers\Api\FriendController@store')->middleware('jwtAuth');
 Route::delete('friends/{id}', 'App\Http\Controllers\Api\FriendController@destroy')->middleware('jwtAuth');
 Route::put('friends/{id}', 'App\Http\Controllers\Api\FriendController@update')->middleware('jwtAuth');
 
-//messages
-Route::get('messages', 'App\Http\Controllers\Api\MessageController@index')->middleware('jwtAuth');
-Route::get('messages/{room_id}', 'App\Http\Controllers\Api\MessageController@show')->middleware('jwtAuth');
-Route::post('messages', 'App\Http\Controllers\Api\MessageController@store')->middleware('jwtAuth');
-Route::delete('messages/{id}', 'App\Http\Controllers\Api\MessageController@destroy')->middleware('jwtAuth');
-Route::put('messages/{id}', 'App\Http\Controllers\Api\MessageController@update')->middleware('jwtAuth');
-
-//messages
+//notifications
 Route::get('notifications', 'App\Http\Controllers\Api\NotificationController@index')->middleware('jwtAuth');
 Route::get('notifications/user', 'App\Http\Controllers\Api\NotificationController@showUser')->middleware('jwtAuth');
 Route::get('notifications/{id}', 'App\Http\Controllers\Api\NotificationController@show')->middleware('jwtAuth');
 Route::delete('notifications/{id}', 'App\Http\Controllers\Api\NotificationController@destroy')->middleware('jwtAuth');
+
+//rooms
+Route::get('rooms', 'App\Http\Controllers\Api\RoomController@index')->middleware('jwtAuth');
+Route::get('rooms/{id}', 'App\Http\Controllers\Api\RoomController@show')->middleware('jwtAuth');
+Route::post('rooms', 'App\Http\Controllers\Api\RoomController@store')->middleware('jwtAuth');
+Route::delete('rooms/{id}', 'App\Http\Controllers\Api\RoomController@destroy')->middleware('jwtAuth');
+Route::put('rooms/{id}', 'App\Http\Controllers\Api\RoomController@update')->middleware('jwtAuth');
+
+//messages
+Route::get('messages', 'App\Http\Controllers\Api\MessageController@index')->middleware('jwtAuth');
+Route::get('messages/{room_id}', 'App\Http\Controllers\Api\MessageController@show')->middleware('jwtAuth');
+Route::post('messages', 'App\Http\Controllers\Api\MessageController@store');
+Route::delete('messages/{id}', 'App\Http\Controllers\Api\MessageController@destroy')->middleware('jwtAuth');
+Route::put('messages/{id}', 'App\Http\Controllers\Api\MessageController@update')->middleware('jwtAuth');
+
+Route::get('test', 'App\Http\Controllers\Api\MessageController@test');
+
 
 
 

@@ -17,6 +17,7 @@ class CreateRoomsTable extends Migration
             $table->increments('id');
             $table->string('name')->default('');
             $table->string('type')->default('individual');
+            $table->string('photo');
             $table->timestamps();
         });
     }

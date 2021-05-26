@@ -65,13 +65,21 @@ class UserController extends Controller
     public function getUser(Request $req) {
         $id = $req->input('id');
         $postCount = Post::where('user_id', $id)->count();
-        $friendCount = Friend::where('user_id1', $id)->orWhere('user_id2', $id)->where('isAccept', 2)->count();
+        $friendCount = $friends = Friend::where([
+                                    ['user_id1', '=', $id],
+                                    ['isAccept','=', '2']
+                                    ])
+                                ->orWhere([
+                                    ['user_id2', '=', $id],
+                                    ['isAccept', '=', '2']
+                                ])->count();
         $user = User::leftJoin('user_infors', 'users.id', 'user_infors.user_id')
                         ->where('users.id', $id)
                         ->select('user_infors.*', 'users.*')
                         ->get();
-        $isFriend = false;
+        $friendInvitationId = 0;
         $statusFriend = 0;
+        $requestSendByYou = false;
         if(Auth::check()) {
             $friend = Friend::where([
                 ['user_id1', Auth::user()->id],
@@ -81,8 +89,9 @@ class UserController extends Controller
                     ['user_id1', $id]
                 ])->first();
             if(isset($friend)) {
-                if($friend->isAccept == 2) {
-                    $isFriend = true;
+                $friendInvitationId = $friend->id;
+                if($friend->user_id1 == Auth::user()->id) {
+                    $requestSendByYou = true;
                 }
                 $statusFriend = $friend->isAccept;
             }
@@ -96,8 +105,9 @@ class UserController extends Controller
 
         return response()->json([
             'success' => true,
-            'isFriend' => $isFriend,
+            'friendInvitationId' => $friendInvitationId,
             'statusFriend' => $statusFriend,
+            'requestSendByYou' => $requestSendByYou,
             'user' => $user,
             'postCount' => $postCount,
             'friendCount' => $friendCount
