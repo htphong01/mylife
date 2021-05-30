@@ -93,9 +93,11 @@ class RoomController extends Controller
                                     ->first();
                 $room->photo = User::find($participant->user_id)->avatar;
                 $room->name = $participant->nickname;
-            }
-            $message = Message::where('room_id', $room->id)->orderBy('id','desc')->first();
+                $room->user_id = $participant->user_id;
 
+            }
+
+            $message = Message::where('room_id', $room->id)->orderBy('id','desc')->first();
             if(isset($message)) {
                 if($message->user_id == Auth::user()->id) {
                     $messageUserName = 'Bạn';
@@ -111,6 +113,14 @@ class RoomController extends Controller
     
                 $room->messageTime = $message->created_at;
             }
+
+            $image = [];
+            $messageImages = Message::select('message')->where('room_id', $room->id)->where('type', 'image')->orderBy('id','desc')->get();
+            foreach($messageImages as $messageImage) {
+                array_push($image, $messageImage->message);
+            }
+
+            $room->images = $image;
             
         }
 
@@ -141,5 +151,34 @@ class RoomController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function updateNickName(Request $req) {
+        $participant = Participant::where('user_id', $req->user_id)
+                                    ->where('room_id', $req->room_id)->first();
+        $participant->nickname = $req->nickname;
+        $participant->save();
+        if($participant) {
+            return response()->json([
+                'success' => true,
+                'message' => $req->nickname
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => $req->nickname
+        ]);
+    }
+
+    public function roomUsers(Request $req) {
+        $participants = Participant::join('users', 'users.id', 'participants.user_id')
+                            ->where('participants.room_id', $req->query('room_id'))
+                            ->select('users.id', 'users.name', 'users.avatar')->get();
+        
+        return response()->json([
+            'success' => true,
+            'users' => $participants
+        ]);
     }
 }

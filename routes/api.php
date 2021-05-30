@@ -66,10 +66,12 @@ Route::delete('notifications/{id}', 'App\Http\Controllers\Api\NotificationContro
 
 //rooms
 Route::get('rooms', 'App\Http\Controllers\Api\RoomController@index')->middleware('jwtAuth');
+Route::get('rooms/users', 'App\Http\Controllers\Api\RoomController@roomUsers')->middleware('jwtAuth');
 Route::get('rooms/{id}', 'App\Http\Controllers\Api\RoomController@show')->middleware('jwtAuth');
 Route::post('rooms', 'App\Http\Controllers\Api\RoomController@store')->middleware('jwtAuth');
 Route::delete('rooms/{id}', 'App\Http\Controllers\Api\RoomController@destroy')->middleware('jwtAuth');
 Route::put('rooms/{id}', 'App\Http\Controllers\Api\RoomController@update')->middleware('jwtAuth');
+Route::put('rooms/update/nickname', 'App\Http\Controllers\Api\RoomController@updateNickName')->middleware('jwtAuth');
 
 //messages
 Route::get('messages', 'App\Http\Controllers\Api\MessageController@index')->middleware('jwtAuth');
@@ -77,6 +79,14 @@ Route::get('messages/{room_id}', 'App\Http\Controllers\Api\MessageController@sho
 Route::post('messages', 'App\Http\Controllers\Api\MessageController@store');
 Route::delete('messages/{id}', 'App\Http\Controllers\Api\MessageController@destroy')->middleware('jwtAuth');
 Route::put('messages/{id}', 'App\Http\Controllers\Api\MessageController@update')->middleware('jwtAuth');
+
+//tasks
+Route::get('tasks', 'App\Http\Controllers\Api\TaskController@index')->middleware('jwtAuth');
+Route::get('tasks/{id}', 'App\Http\Controllers\Api\TaskController@show')->middleware('jwtAuth');
+Route::post('tasks', 'App\Http\Controllers\Api\TaskController@store');
+Route::delete('tasks/{id}', 'App\Http\Controllers\Api\TaskController@destroy')->middleware('jwtAuth');
+Route::put('tasks/{id}', 'App\Http\Controllers\Api\TaskController@update')->middleware('jwtAuth');
+
 
 Route::get('test', 'App\Http\Controllers\Api\MessageController@test');
 
