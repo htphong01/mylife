@@ -40,6 +40,7 @@
       23 => 'App\\Providers\\AuthServiceProvider',
       24 => 'App\\Providers\\EventServiceProvider',
       25 => 'App\\Providers\\RouteServiceProvider',
+      26 => 'App\\Providers\\GoogleDriveServiceProvider',
     ),
     'aliases' => 
     array (
@@ -346,6 +347,14 @@
     'default' => 'local',
     'disks' => 
     array (
+      'google' => 
+      array (
+        'driver' => 'google',
+        'clientId' => '112201727875-bd592d1f57i64d9967ome7805fhv71a7.apps.googleusercontent.com',
+        'clientSecret' => 'yBpzdSwkjKpou0Hq2EugmzF6',
+        'refreshToken' => '1//04ZF--16S8-WVCgYIARAAGAQSNwF-L9IrJAXipOyzZ8tyqFarD8FIEazGwQQJpGFTAj8hRhCVkIbHKlyk6GEIQvnDnCfGjE2tVtQ',
+        'folderId' => '1Xh5wgBlZQWv-rQiXVhOXDvvUoy2Jsk4z',
+      ),
       'store_post' => 
       array (
         'driver' => 'local',

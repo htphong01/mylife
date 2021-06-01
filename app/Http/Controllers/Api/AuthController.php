@@ -16,7 +16,7 @@ use App\Models\Friend;
 use App\Models\Post;
 
 
-class AuthController extends Controller
+class AuthController extends Controller 
 {
     public function login(Request $req) {
         $creds = $req->only(['email', 'password']);

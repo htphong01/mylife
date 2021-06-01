@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->default('store/profiles/nouser1.png');
             $table->string('cover')->default('store/covers/default.jpg');
             $table->integer('isActive')->default('1');
+            $table->text('stringeeToken')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

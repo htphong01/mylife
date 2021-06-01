@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Middleware;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +32,8 @@ Route::put('user', 'App\Http\Controllers\Api\UserController@update')->middleware
 Route::post('post', 'App\Http\Controllers\Api\PostsController@store')->middleware('jwtAuth');
 Route::delete('posts/{id}', 'App\Http\Controllers\Api\PostsController@destroy')->middleware('jwtAuth');
 Route::put('posts/{id}', 'App\Http\Controllers\Api\PostsController@update')->middleware('jwtAuth');
-Route::get('posts', 'App\Http\Controllers\Api\PostsController@index');
-Route::get('posts/{id}', 'App\Http\Controllers\Api\PostsController@show');
+Route::get('posts', 'App\Http\Controllers\Api\PostsController@index')->middleware('jwtAuth');
+Route::get('posts/{id}', 'App\Http\Controllers\Api\PostsController@show')->middleware('jwtAuth');
 
 //comments
 Route::post('comments', 'App\Http\Controllers\Api\CommentsController@store')->middleware('jwtAuth');
@@ -88,7 +89,12 @@ Route::delete('tasks/{id}', 'App\Http\Controllers\Api\TaskController@destroy')->
 Route::put('tasks/{id}', 'App\Http\Controllers\Api\TaskController@update')->middleware('jwtAuth');
 
 
-Route::get('test', 'App\Http\Controllers\Api\MessageController@test');
+Route::get('test', function() {
+    $dir = '/'; 
+    $recursive = false; 
+    $contents = collect(Storage::disk('google')->listContents($dir, $recursive)); 
+    return $contents->where('type', '=', 'file'); 
+});
 
 
 

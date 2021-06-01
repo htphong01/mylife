@@ -78,7 +78,7 @@ class CommentsController extends Controller
      */
     public function show($id)
     {
-        $comments = Comment::where('id', $id)->get();
+        $comments = Comment::where('id', $id)->orderBy('id','desc')->get();
         foreach($comments as $comment){
             $comment->user;
         }

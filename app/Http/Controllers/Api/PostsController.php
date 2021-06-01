@@ -15,20 +15,23 @@ class PostsController extends Controller
         $post = new Post();
         $post->user_id = Auth::user()->id;
         $post->description = $req->desc;
-
         // check if post has photo
         if($req->photo != '') {
             $image = str_replace('data:image/jpeg;base64,', '', $req->photo);
             $image = str_replace(' ', '+', $image);
             $imageName = time().'.'.'jpg';
-            // \File::put(storage_path() .'/app/public/posts/' . $imageName, base64_decode($image));
-            Storage::disk('store_post')->put($imageName, base64_decode($image));
-            $post->photo = 'store/posts/' .$imageName;
-            
+            $file = Storage::disk('store_post')->put($imageName, base64_decode($image));
+            // $dir = '/'; 
+            // $recursive = false; 
+            // $contents = collect(Storage::disk('store_post')->listContents($dir, $recursive)); 
+            // $imageID = $contents->where('name', '=', $imageName)->first();
+            $post->photo = '/store/posts/' .$imageName;
         }
 
+        
         $post->save();
         $post->user;
+        
         if($post->photo != '') {
             return response()->json([
                 'success' => true,

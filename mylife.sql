@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2021 at 09:50 AM
+-- Generation Time: May 31, 2021 at 03:53 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -56,7 +56,11 @@ INSERT INTO `comments` (`id`, `user_id`, `post_id`, `comment`, `type`, `parent_i
 (11, 1, 11, 'store/comments/1621844124.jpg', 'image', 0, '2021-05-24 08:15:24', '2021-05-24 08:15:24'),
 (12, 17, 12, 'Ảnh đẹp lắm', 'text', 0, '2021-05-24 09:33:51', '2021-05-24 09:33:51'),
 (13, 17, 12, 'store/comments/1621848844.jpg', 'image', 0, '2021-05-24 09:34:04', '2021-05-24 09:34:04'),
-(14, 1, 12, 'store/comments/1621856328.jpg', 'image', 0, '2021-05-24 11:38:48', '2021-05-24 11:38:48');
+(14, 1, 12, 'store/comments/1621856328.jpg', 'image', 0, '2021-05-24 11:38:48', '2021-05-24 11:38:48'),
+(15, 1, 11, 'hello', 'text', 0, '2021-05-26 08:38:26', '2021-05-26 08:38:26'),
+(16, 1, 11, 'store/comments/1622018306.jpg', 'image', 0, '2021-05-26 08:38:26', '2021-05-26 08:38:26'),
+(17, 1, 5, 'Hello cậu', 'text', 0, '2021-05-28 09:41:47', '2021-05-28 09:41:47'),
+(18, 19, 12, 'Xin chào', 'text', 0, '2021-05-29 01:33:40', '2021-05-29 01:33:40');
 
 -- --------------------------------------------------------
 
@@ -66,6 +70,7 @@ INSERT INTO `comments` (`id`, `user_id`, `post_id`, `comment`, `type`, `parent_i
 
 CREATE TABLE `events` (
   `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `occur` datetime NOT NULL,
   `creater_id` int(11) NOT NULL,
   `content` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -125,7 +130,9 @@ CREATE TABLE `friends` (
 --
 
 INSERT INTO `friends` (`id`, `user_id1`, `user_id2`, `isAccept`, `created_at`, `updated_at`) VALUES
-(15, 14, 1, 1, '2021-05-24 15:44:05', '2021-05-24 15:44:05');
+(15, 14, 1, 2, '2021-05-24 15:44:05', '2021-05-26 08:39:08'),
+(16, 1, 2, 1, '2021-05-28 13:09:26', '2021-05-28 13:09:26'),
+(17, 19, 2, 2, '2021-05-29 01:34:02', '2021-05-29 01:34:35');
 
 -- --------------------------------------------------------
 
@@ -174,7 +181,10 @@ INSERT INTO `likes` (`id`, `post_id`, `user_id`, `created_at`, `updated_at`) VAL
 (17, 1, 1, '2021-05-23 16:56:21', '2021-05-23 16:56:21'),
 (19, 12, 17, '2021-05-24 09:34:19', '2021-05-24 09:34:19'),
 (22, 12, 1, '2021-05-24 11:58:57', '2021-05-24 11:58:57'),
-(23, 11, 1, '2021-05-24 12:00:15', '2021-05-24 12:00:15');
+(23, 11, 1, '2021-05-24 12:00:15', '2021-05-24 12:00:15'),
+(27, 12, 2, '2021-05-27 17:11:42', '2021-05-27 17:11:42'),
+(28, 5, 1, '2021-05-28 09:41:49', '2021-05-28 09:41:49'),
+(29, 11, 2, '2021-05-28 13:11:10', '2021-05-28 13:11:10');
 
 -- --------------------------------------------------------
 
@@ -202,7 +212,44 @@ INSERT INTO `messages` (`id`, `room_id`, `user_id`, `message`, `type`, `status`,
 (2, 12, 1, 'Cậu ở đâu thế nhỉ', 'text', 1, '2021-05-21 17:34:43', '2021-05-21 17:34:43'),
 (3, 12, 2, 'Mình ở Huế nha bạn', 'text', 1, '2021-05-21 18:13:12', '2021-05-21 18:13:12'),
 (4, 12, 2, 'store/messages/1621621141.jpg', 'image', 1, '2021-05-21 18:19:01', '2021-05-21 18:19:01'),
-(5, 17, 1, 'Xin chào, cho mình làm quen nhé', 'text', 1, '2021-05-24 15:33:39', '2021-05-24 15:33:39');
+(5, 17, 1, 'Xin chào, cho mình làm quen nhé', 'text', 1, '2021-05-24 15:33:39', '2021-05-24 15:33:39'),
+(6, 12, 1, 'Mình cũng ở Huế á', 'text', 1, '2021-05-26 06:58:53', '2021-05-26 06:58:53'),
+(7, 12, 1, 'Bạn ở chỗ nào', 'text', 1, '2021-05-26 07:00:20', '2021-05-26 07:00:20'),
+(8, 12, 1, 'Alo\nalo\nalo', 'text', 1, '2021-05-26 07:11:19', '2021-05-26 07:11:19'),
+(9, 12, 1, 'store/messages/1622015330.jpg', 'image', 1, '2021-05-26 07:48:50', '2021-05-26 07:48:50'),
+(10, 20, 1, 'Avatar mèo dễ thương đó', 'text', 1, '2021-05-26 08:24:50', '2021-05-26 08:24:50'),
+(11, 12, 1, 'Đẹp không :v', 'text', 1, '2021-05-26 08:45:29', '2021-05-26 08:45:29'),
+(12, 12, 2, 'cũng được á bạn', 'text', 1, '2021-05-26 08:50:35', '2021-05-26 08:50:35'),
+(13, 12, 2, 'mình xin nha', 'text', 1, '2021-05-26 08:52:12', '2021-05-26 08:52:12'),
+(14, 12, 2, 'Cám ơn bạn trước nha', 'text', 1, '2021-05-26 08:54:24', '2021-05-26 08:54:24'),
+(15, 12, 2, 'Hello', 'text', 1, '2021-05-26 08:57:35', '2021-05-26 08:57:35'),
+(16, 12, 2, 'Hi', 'text', 1, '2021-05-26 08:58:56', '2021-05-26 08:58:56'),
+(17, 12, 2, 'What\'s up?', 'text', 1, '2021-05-26 08:59:17', '2021-05-26 08:59:17'),
+(18, 12, 1, 'Sao hả bạn', 'text', 1, '2021-05-26 09:00:08', '2021-05-26 09:00:08'),
+(29, 12, 1, 'Eeee', 'text', 1, '2021-05-26 09:14:09', '2021-05-26 09:14:09'),
+(30, 12, 1, 'Gấp gấp', 'text', 1, '2021-05-26 09:14:19', '2021-05-26 09:14:19'),
+(31, 12, 1, 'Nhanh bạn ơi', 'text', 1, '2021-05-26 09:15:25', '2021-05-26 09:15:25'),
+(32, 17, 1, 'store/messages/1622022560.jpg', 'image', 1, '2021-05-26 09:49:20', '2021-05-26 09:49:20'),
+(33, 17, 1, 'Tặng bạn', 'text', 1, '2021-05-26 09:49:34', '2021-05-26 09:49:34'),
+(80, 12, 2, 'Co chuyen gi ma gap the', 'text', 1, '2021-05-26 16:23:27', '2021-05-26 16:23:27'),
+(81, 20, 1, 'Eee, nói nayd', 'text', 1, '2021-05-26 16:24:10', '2021-05-26 16:24:10'),
+(82, 12, 1, 'store/messages/1622046267.jpg', 'image', 1, '2021-05-26 16:24:27', '2021-05-26 16:24:27'),
+(83, 12, 1, 'đẹp ko', 'text', 1, '2021-05-26 16:24:35', '2021-05-26 16:24:35'),
+(84, 20, 14, 'Sao a', 'text', 1, '2021-05-26 17:17:51', '2021-05-26 17:17:51'),
+(85, 20, 1, 'Mèo đẹp á', 'text', 1, '2021-05-26 17:24:09', '2021-05-26 17:24:09'),
+(86, 20, 1, 'Haha', 'text', 1, '2021-05-26 17:26:31', '2021-05-26 17:26:31'),
+(87, 20, 14, 'Cam on nghe', 'text', 1, '2021-05-26 17:28:24', '2021-05-26 17:28:24'),
+(88, 20, 1, 'Không có chi', 'text', 1, '2021-05-26 17:28:54', '2021-05-26 17:28:54'),
+(89, 20, 14, 'Okok', 'text', 1, '2021-05-26 17:29:06', '2021-05-26 17:29:06'),
+(90, 20, 1, '❤️❤️❤️', 'text', 1, '2021-05-27 15:14:11', '2021-05-27 15:14:11'),
+(244, 22, 18, 'Xin chào', 'text', 1, '2021-05-29 01:28:28', '2021-05-29 01:28:28'),
+(245, 22, 2, 'Hi', 'text', 1, '2021-05-29 01:28:51', '2021-05-29 01:28:51'),
+(246, 22, 18, 'hello', 'text', 1, '2021-05-29 01:28:57', '2021-05-29 01:28:57'),
+(247, 23, 19, 'Hi', 'text', 1, '2021-05-29 01:36:32', '2021-05-29 01:36:32'),
+(248, 23, 19, 'Hi', 'text', 1, '2021-05-29 01:36:48', '2021-05-29 01:36:48'),
+(249, 23, 2, 'Xin chao', 'text', 1, '2021-05-29 01:36:55', '2021-05-29 01:36:55'),
+(250, 23, 19, 'Hello', 'text', 1, '2021-05-29 01:46:31', '2021-05-29 01:46:31'),
+(251, 23, 19, 'store/messages/1622252804.jpg', 'image', 1, '2021-05-29 01:46:45', '2021-05-29 01:46:45');
 
 -- --------------------------------------------------------
 
@@ -266,7 +313,21 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `sender_id`, `content`, `receiver_id`, `link`, `image`, `type`, `created_at`, `updated_at`) VALUES
-(50, 14, '<b>Trần Văn A</b> đã gửi cho bạn lời mời kết bạn', 1, '/profile?id=1', 'store/profiles/1621766865.jpg', 1, '2021-05-24 15:44:05', '2021-05-24 15:44:05');
+(50, 14, '<b>Trần Văn A</b> đã gửi cho bạn lời mời kết bạn', 1, '/profile?id=1', 'store/profiles/1621766865.jpg', 1, '2021-05-24 15:44:05', '2021-05-24 15:44:05'),
+(51, 1, '<b>Thanh Phong</b> đã chấp nhận lời mời kết bạn của bạn', 14, '/profile?id=14', 'store/profiles/1621001165.jpg', 4, '2021-05-26 08:39:08', '2021-05-26 08:39:08'),
+(52, 2, '<b>Hồ Thanh Phong</b> đã thích bài viết của bạn', 17, '/profile?id=17', 'store/profiles/nouser1.png', 3, '2021-05-27 17:11:02', '2021-05-27 17:11:02'),
+(53, 2, '<b>Hồ Thanh Phong</b> đã thích bài viết của bạn', 17, '/profile?id=17', 'store/profiles/nouser1.png', 3, '2021-05-27 17:11:07', '2021-05-27 17:11:07'),
+(54, 2, '<b>Hồ Thanh Phong</b> đã thích bài viết của bạn', 17, '/profile?id=17', 'store/profiles/nouser1.png', 3, '2021-05-27 17:11:38', '2021-05-27 17:11:38'),
+(55, 2, '<b>Hồ Thanh Phong</b> đã thích bài viết của bạn', 17, '/profile?id=17', 'store/profiles/nouser1.png', 3, '2021-05-27 17:11:42', '2021-05-27 17:11:42'),
+(56, 1, '<b>Thanh Phong</b> đã bình luận một bài viết của bạn', 2, '/profile?id=2', 'store/profiles/1621001165.jpg', 2, '2021-05-28 09:41:47', '2021-05-28 09:41:47'),
+(57, 1, '<b>Thanh Phong</b> đã thích bài viết của bạn', 2, '/profile?id=2', 'store/profiles/1621001165.jpg', 3, '2021-05-28 09:41:49', '2021-05-28 09:41:49'),
+(58, 1, '<b>Thanh Phong</b> đã gửi cho bạn lời mời kết bạn', 2, '/profile?id=2', 'store/profiles/1621001165.jpg', 1, '2021-05-28 13:09:26', '2021-05-28 13:09:26'),
+(59, 2, '<b>Hồ Thanh Phong</b> đã thích bài viết của bạn', 1, '/profile?id=1', 'store/profiles/nouser1.png', 3, '2021-05-28 13:11:10', '2021-05-28 13:11:10'),
+(60, 19, '<b>Nguyễn Văn C</b> đã thích bài viết của bạn', 17, '/profile?id=17', 'store/profiles/1622251996.jpg', 3, '2021-05-29 01:33:28', '2021-05-29 01:33:28'),
+(61, 19, '<b>Nguyễn Văn C</b> đã bình luận một bài viết của bạn', 17, '/profile?id=17', 'store/profiles/1622251996.jpg', 2, '2021-05-29 01:33:40', '2021-05-29 01:33:40'),
+(62, 19, '<b>Nguyễn Văn C</b> đã thích bài viết của bạn', 17, '/profile?id=17', 'store/profiles/1622251996.jpg', 3, '2021-05-29 01:33:46', '2021-05-29 01:33:46'),
+(63, 19, '<b>Nguyễn Văn C</b> đã gửi cho bạn lời mời kết bạn', 2, '/profile?id=2', 'store/profiles/1622251996.jpg', 1, '2021-05-29 01:34:02', '2021-05-29 01:34:02'),
+(64, 2, '<b>Hồ Thanh Phong</b> đã chấp nhận lời mời kết bạn của bạn', 19, '/profile?id=19', 'store/profiles/nouser1.png', 4, '2021-05-29 01:34:35', '2021-05-29 01:34:35');
 
 -- --------------------------------------------------------
 
@@ -311,12 +372,20 @@ CREATE TABLE `participants` (
 --
 
 INSERT INTO `participants` (`id`, `user_id`, `nickname`, `room_id`, `created_at`, `updated_at`) VALUES
-(14, 2, 'Hồ Thanh Phong', 12, '2021-05-21 17:30:47', '2021-05-21 17:30:47'),
+(14, 2, 'Thanh Phong Ho', 12, '2021-05-21 17:30:47', '2021-05-28 14:27:19'),
 (15, 1, 'Thanh Phong', 12, '2021-05-21 17:30:47', '2021-05-21 17:30:47'),
-(20, 17, 'Nguyễn Văn B', 16, '2021-05-24 15:13:59', '2021-05-24 15:13:59'),
-(21, 1, 'Thanh Phong', 16, '2021-05-24 15:13:59', '2021-05-24 15:13:59'),
 (22, 17, '1 bạn giấu mặt', 17, '2021-05-24 15:24:53', '2021-05-24 15:24:53'),
-(23, 1, 'Thanh Phong', 17, '2021-05-24 15:24:53', '2021-05-24 15:24:53');
+(23, 1, 'Thanh Phong', 17, '2021-05-24 15:24:53', '2021-05-24 15:24:53'),
+(26, 17, 'Nguyễn Văn B', 19, '2021-05-26 08:13:05', '2021-05-26 08:13:05'),
+(27, 14, 'Trần Văn A', 19, '2021-05-26 08:13:05', '2021-05-26 08:13:05'),
+(28, 14, 'Trần Văn A', 20, '2021-05-26 08:24:40', '2021-05-26 08:24:40'),
+(29, 1, 'Thanh Phong', 20, '2021-05-26 08:24:40', '2021-05-26 08:24:40'),
+(30, 17, 'Nguyễn Văn B', 21, '2021-05-26 16:04:39', '2021-05-26 16:04:39'),
+(31, 2, 'Hồ Thanh Phong', 21, '2021-05-26 16:04:39', '2021-05-26 16:04:39'),
+(32, 2, 'Hồ Thanh Phong', 22, '2021-05-29 01:28:10', '2021-05-29 01:28:10'),
+(33, 18, 'test2@gmail.com', 22, '2021-05-29 01:28:10', '2021-05-29 01:28:10'),
+(34, 2, 'Phong Ho', 23, '2021-05-29 01:36:26', '2021-05-29 01:37:11'),
+(35, 19, 'Nguyễn Văn C', 23, '2021-05-29 01:36:26', '2021-05-29 01:36:26');
 
 -- --------------------------------------------------------
 
@@ -340,7 +409,7 @@ CREATE TABLE `posts` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `description` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `photo` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -350,16 +419,18 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `user_id`, `description`, `photo`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Nước dừa ngon nhưng đắt', 'store/posts/1621001456.jpg', '2021-05-13 17:10:56', '2021-05-14 14:10:56'),
-(2, 1, 'Lag quá đi', 'store/posts/1621001597.jpg', '2021-05-13 17:13:17', '2021-05-14 14:13:17'),
-(3, 1, 'Triệu hồi chi thuật', 'store/posts/1621274716.jpg', '2021-05-17 18:05:16', '2021-05-17 18:05:16'),
-(4, 1, 'A4 ❤️', 'store/posts/1621274825.jpg', '2021-05-17 18:07:05', '2021-05-17 18:07:05'),
-(5, 2, 'Xin chào mọi người', 'store/posts/1621358272.jpg', '2021-05-18 17:17:53', '2021-05-18 17:17:53'),
-(7, 1, 'Mận ngon ngọt', 'store/posts/1621707965.jpg', '2021-05-22 18:26:05', '2021-05-22 18:26:05'),
-(8, 13, 'Trường THPT Hai Bà Trưng - Huế', 'store/posts/1621758215.jpg', '2021-05-23 08:23:35', '2021-05-23 08:23:35'),
-(9, 14, 'Cập nhật ảnh đại diện', 'store/posts/1621766909.jpg', '2021-05-23 10:48:29', '2021-05-23 10:48:29'),
-(11, 1, 'Máy bay mơ ước', 'store/posts/1621839600.jpg', '2021-05-24 07:00:00', '2021-05-24 07:00:00'),
-(12, 17, 'Quà tặng từ thiên nhiên', 'store/posts/1621845407.jpg', '2021-05-24 08:36:47', '2021-05-24 08:36:47');
+(1, 1, 'Nước dừa ngon nhưng đắt', 'https://docs.google.com/uc?id=1cwP9UDgUhatXcalZIketnQtsC5D8gpht', '2021-05-13 17:10:56', '2021-05-14 14:10:56'),
+(2, 1, 'Lag quá đi', 'https://docs.google.com/uc?id=1h1m5aGeHi_TgmHrQZjcqe7FNYGmqbF6H', '2021-05-13 17:13:17', '2021-05-14 14:13:17'),
+(3, 1, 'Triệu hồi chi thuật', 'https://docs.google.com/uc?id=1YP6-4Z2eQV1ZR5HdmSvcT_laCvUiEfPC', '2021-05-17 18:05:16', '2021-05-17 18:05:16'),
+(4, 1, 'A4 ❤️', 'https://docs.google.com/uc?id=17m8h_zn89XrWPAy7OHkVelKmBWWc7rBM', '2021-05-17 18:07:05', '2021-05-17 18:07:05'),
+(5, 2, 'Xin chào mọi người', 'https://docs.google.com/uc?id=1h4rSQjj6BrXJLFkK9-qiWjh7wMPoKhZ4', '2021-05-18 17:17:53', '2021-05-18 17:17:53'),
+(7, 1, 'Mận ngon ngọt', 'https://docs.google.com/uc?id=1qTk4j19sNcxkokmeAIEuvCVi5eWUjJn_', '2021-05-22 18:26:05', '2021-05-22 18:26:05'),
+(8, 13, 'Trường THPT Hai Bà Trưng - Huế', 'https://docs.google.com/uc?id=16RQJvPyEbchJuftL13DkQAKE_DuWcXJz', '2021-05-23 08:23:35', '2021-05-23 08:23:35'),
+(9, 14, 'Cập nhật ảnh đại diện', 'https://docs.google.com/uc?id=1AOMrfsFWYMmlawaL6AN4uWVV1IzY5Nsn', '2021-05-23 10:48:29', '2021-05-23 10:48:29'),
+(11, 1, 'Máy bay mơ ước', 'https://docs.google.com/uc?id=1Hl1776NqtDaXgUjMRPKA7TIWeQy1oTLy', '2021-05-24 07:00:00', '2021-05-24 07:00:00'),
+(12, 17, 'Quà tặng từ thiên nhiên', 'https://docs.google.com/uc?id=1YQvo0thwozIVlM-07MmiFZyknaBfdofR', '2021-05-24 08:36:47', '2021-05-24 08:36:47'),
+(13, 19, 'Thiên nhiên', 'https://docs.google.com/uc?id=1KAcQAuNyxBW5A2QOYak94W2lvw88WUeZ', '2021-05-29 01:35:33', '2021-05-29 01:35:33'),
+(18, 1, 'Môn toán', 'https://docs.google.com/uc?id=1aCvVF5AN3Hmlz4gCY0O-6zGC-CNXAw_R', '2021-05-31 09:03:00', '2021-05-31 09:03:00');
 
 -- --------------------------------------------------------
 
@@ -423,7 +494,12 @@ CREATE TABLE `rooms` (
 
 INSERT INTO `rooms` (`id`, `name`, `type`, `photo`, `created_at`, `updated_at`) VALUES
 (12, 'Phòng chat', 'individual', 'store/profiles/1621001165.jpg', '2021-05-21 17:30:47', '2021-05-21 17:30:47'),
-(17, 'Phòng chat', 'individual', 'store/profiles/1621001165.jpg', '2021-05-24 15:24:53', '2021-05-24 15:24:53');
+(17, 'Phòng chat', 'individual', 'store/profiles/1621001165.jpg', '2021-05-24 15:24:53', '2021-05-24 15:24:53'),
+(19, 'Phòng chat', 'individual', 'store/profiles/1621766865.jpg', '2021-05-26 08:13:05', '2021-05-26 08:13:05'),
+(20, 'Phòng chat', 'individual', 'store/profiles/1621001165.jpg', '2021-05-26 08:24:40', '2021-05-26 08:24:40'),
+(21, 'Phòng chat', 'individual', 'store/profiles/nouser1.png', '2021-05-26 16:04:39', '2021-05-26 16:04:39'),
+(22, 'Phòng chat', 'individual', 'store/profiles/nouser1.png', '2021-05-29 01:28:10', '2021-05-29 01:28:10'),
+(23, 'Phòng chat', 'individual', 'store/profiles/1622251996.jpg', '2021-05-29 01:36:26', '2021-05-29 01:36:26');
 
 -- --------------------------------------------------------
 
@@ -433,28 +509,26 @@ INSERT INTO `rooms` (`id`, `name`, `type`, `photo`, `created_at`, `updated_at`) 
 
 CREATE TABLE `tasks` (
   `id` int(10) UNSIGNED NOT NULL,
-  `room_id` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `task_receivers`
---
-
-CREATE TABLE `task_receivers` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `task_id` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `creater_id` int(11) NOT NULL,
   `receiver_id` int(11) NOT NULL,
+  `room_id` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `content` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `deadline` datetime NOT NULL,
   `isSubmitted` int(11) NOT NULL DEFAULT 1,
+  `submitted_at` datetime DEFAULT NULL,
   `isCompleted` int(11) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tasks`
+--
+
+INSERT INTO `tasks` (`id`, `title`, `creater_id`, `receiver_id`, `room_id`, `content`, `deadline`, `isSubmitted`, `submitted_at`, `isCompleted`, `created_at`, `updated_at`) VALUES
+(11, 'Cuối kì môn android', 1, 2, '12', 'Các chức năng chưa hoàn thiện\n- Gọi điện\n- Giao công việc\n- Tạo sự kiện', '2021-05-31 04:34:00', 1, NULL, 1, '2021-05-30 11:34:23', '2021-05-30 11:34:23'),
+(12, 'Cuối kì môn android', 1, 1, '12', 'Các chức năng chưa hoàn thiện\n- Gọi điện\n- Giao công việc\n- Tạo sự kiện', '2021-05-31 04:34:00', 1, NULL, 1, '2021-05-30 11:34:23', '2021-05-30 11:34:23');
 
 -- --------------------------------------------------------
 
@@ -486,7 +560,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `av
 (13, 'Hồ Thị Minh Trang', 'htmtrang@gmail.com', NULL, '$2y$10$HE9DgmTfCFlgqELXIc1yJuCtAchH4psQ4Dz/iau1A2pAKwq0vKgfe', 'store/profiles/1621757890.jpg', 'store/covers/default.jpg', 1, NULL, '2021-05-23 08:17:24', '2021-05-23 08:18:10'),
 (14, 'Trần Văn A', 'test@gmail.com', NULL, '$2y$10$Ny3kxQOoPHGERyWflLV8cOQaI2NT1yg/AKhGcjLVrAHrlkybYvDia', 'store/profiles/1621766865.jpg', 'store/covers/default.jpg', 1, NULL, '2021-05-23 10:46:51', '2021-05-23 10:47:46'),
 (15, 'Hồ Thanh Phong', 'thanhphong@gmail.com', NULL, '$2y$10$GRxna8PBkknSgWG19vuI8.RVT1Ci8Jmm9bl2RsYqsHgvKGNSdA1e6', 'store/profiles/1621839466.jpg', 'store/covers/default.jpg', 1, NULL, '2021-05-24 06:56:51', '2021-05-24 06:57:46'),
-(17, 'Nguyễn Văn B', 'test1@gmail.com', NULL, '$2y$10$M5E7nsKHZMFLSf5/R/F3zOtE93FoP/O2qgnvMxnkjT8cSlttbn5lG', 'store/profiles/1621845371.jpg', 'store/covers/default.jpg', 1, NULL, '2021-05-24 08:35:34', '2021-05-24 08:36:11');
+(17, 'Nguyễn Văn B', 'test1@gmail.com', NULL, '$2y$10$M5E7nsKHZMFLSf5/R/F3zOtE93FoP/O2qgnvMxnkjT8cSlttbn5lG', 'store/profiles/1621845371.jpg', 'store/covers/default.jpg', 1, NULL, '2021-05-24 08:35:34', '2021-05-24 08:36:11'),
+(18, 'test2@gmail.com', 'test2@gmail.com', NULL, '$2y$10$17ZOHD9YIy4Sr/PhHXmxqeX28OMVaRKyimQyAe.rGRkWi8AoPloma', 'store/profiles/nouser1.png', 'store/covers/default.jpg', 1, NULL, '2021-05-29 01:25:24', '2021-05-29 01:25:24'),
+(19, 'Nguyễn Văn C', 'test3@gmail.com', NULL, '$2y$10$TXw8sylGRDc9kIuQyH9zjeuHE4tYSm3civnBqvEnCPfG2.ziDk2Ly', 'store/profiles/1622251996.jpg', 'store/covers/default.jpg', 1, NULL, '2021-05-29 01:32:30', '2021-05-29 01:33:17');
 
 -- --------------------------------------------------------
 
@@ -518,7 +594,9 @@ INSERT INTO `user_infors` (`id`, `user_id`, `dateOfBirth`, `gender`, `address`, 
 (13, 13, '2002-11-20', 'Nữ', NULL, NULL, NULL, NULL, NULL, '2021-05-23 08:17:24', '2021-05-23 08:48:57'),
 (14, 14, '2001-03-03', 'Nam', NULL, NULL, NULL, NULL, NULL, '2021-05-23 10:46:51', '2021-05-23 10:47:46'),
 (15, 15, '2001-07-06', 'Nam', NULL, NULL, NULL, NULL, NULL, '2021-05-24 06:56:51', '2021-05-24 06:57:46'),
-(16, 17, '2001-07-06', 'Nam', NULL, NULL, NULL, NULL, NULL, '2021-05-24 08:35:34', '2021-05-24 08:36:11');
+(16, 17, '2001-07-06', 'Nam', NULL, NULL, NULL, NULL, NULL, '2021-05-24 08:35:34', '2021-05-24 08:36:11'),
+(17, 18, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-29 01:25:24', '2021-05-29 01:25:24'),
+(18, 19, '2001-07-06', 'Nam', 'Huế, Việt Nam', 'VKU', NULL, NULL, NULL, '2021-05-29 01:32:30', '2021-05-29 01:35:10');
 
 --
 -- Indexes for dumped tables
@@ -645,12 +723,6 @@ ALTER TABLE `tasks`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `task_receivers`
---
-ALTER TABLE `task_receivers`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -671,7 +743,7 @@ ALTER TABLE `user_infors`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -695,7 +767,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `friends`
 --
 ALTER TABLE `friends`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `helps`
@@ -707,13 +779,13 @@ ALTER TABLE `helps`
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -725,7 +797,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `notification_types`
@@ -737,13 +809,13 @@ ALTER TABLE `notification_types`
 -- AUTO_INCREMENT for table `participants`
 --
 ALTER TABLE `participants`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `privacies`
@@ -767,31 +839,25 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `task_receivers`
---
-ALTER TABLE `task_receivers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `user_infors`
 --
 ALTER TABLE `user_infors`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables
