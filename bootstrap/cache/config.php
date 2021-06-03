@@ -355,6 +355,11 @@
         'refreshToken' => '1//04ZF--16S8-WVCgYIARAAGAQSNwF-L9IrJAXipOyzZ8tyqFarD8FIEazGwQQJpGFTAj8hRhCVkIbHKlyk6GEIQvnDnCfGjE2tVtQ',
         'folderId' => '1Xh5wgBlZQWv-rQiXVhOXDvvUoy2Jsk4z',
       ),
+      'store_task' => 
+      array (
+        'driver' => 'local',
+        'root' => 'D:\\xampp\\htdocs\\blog\\public/store/tasks',
+      ),
       'store_post' => 
       array (
         'driver' => 'local',

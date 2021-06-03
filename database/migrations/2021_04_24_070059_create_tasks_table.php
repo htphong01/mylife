@@ -20,6 +20,8 @@ class CreateTasksTable extends Migration
             $table->integer('room_id');
             $table->string('content');
             $table->datetime('deadline');
+            $table->string('note');
+            $table->string('file');
             $table->integer('isSubmitted')->default('1');
             $table->datetime('submitted_at');
             $table->integer('isCompleted')->default('1');

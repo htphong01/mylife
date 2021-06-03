@@ -58,7 +58,7 @@ class FriendController extends Controller
             $friend->user_id1 = Auth::user()->id;
             $friend->user_id2 = $request->user_id2;
             $friend->save();
-            createNotification(1, $request->user_id2);
+            createNotification(1, $request->user_id2, Auth::user()->id);
             $friend->user1 = User::find($friend->user_id1);
             $friend->user2 = User::find($friend->user_id2);
         }
@@ -133,7 +133,7 @@ class FriendController extends Controller
     public function update($id)
     {
         $friend = Friend::find($id);
-        createNotification(4, intval($friend->user_id1));
+        createNotification(4, intval($friend->user_id1), Auth::user()->id);
         $friend->isAccept = 2;
         $friend->save();
         return $this->show($id);

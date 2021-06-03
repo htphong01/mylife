@@ -29,7 +29,7 @@ class CommentsController extends Controller
     }
 
     public function commentPost(Request $req) {
-        $comments = Comment::where('post_id', $req->post_id)->get();
+        $comments = Comment::where('post_id', $req->post_id)->orderBy('id','desc')->get();
         foreach($comments as $comment){
             $comment->user;
         }
@@ -63,7 +63,7 @@ class CommentsController extends Controller
         }
         $comment->save();
         $post = Post::find($request->post_id);
-        createNotification(2, $post->user_id);
+        createNotification(2, $post->user_id, $post->id);
         return response()->json([
             'success' => true,
             'message' => 'comment added'

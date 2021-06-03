@@ -37,6 +37,11 @@ return [
             'folderId' => '1Xh5wgBlZQWv-rQiXVhOXDvvUoy2Jsk4z',
         ],
 
+        'store_task' => [
+            'driver' => 'local',
+            'root' => public_path() .'/store/tasks',
+        ],
+
         'store_post' => [
             'driver' => 'local',
             'root' => public_path() .'/store/posts',

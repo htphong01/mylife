@@ -23,6 +23,7 @@ Route::get('logout', 'App\Http\Controllers\Api\AuthController@logout')->middlewa
 
 // user
 Route::put('save-user-infor', 'App\Http\Controllers\Api\UserController@saveUserInfor')->middleware('jwtAuth');
+Route::put('user/change-avatar', 'App\Http\Controllers\Api\UserController@changeAvatar')->middleware('jwtAuth');
 Route::get('search/user', 'App\Http\Controllers\Api\UserController@search');
 Route::get('get/user', 'App\Http\Controllers\Api\UserController@getUser');
 Route::put('user', 'App\Http\Controllers\Api\UserController@update')->middleware('jwtAuth');
@@ -33,6 +34,7 @@ Route::post('post', 'App\Http\Controllers\Api\PostsController@store')->middlewar
 Route::delete('posts/{id}', 'App\Http\Controllers\Api\PostsController@destroy')->middleware('jwtAuth');
 Route::put('posts/{id}', 'App\Http\Controllers\Api\PostsController@update')->middleware('jwtAuth');
 Route::get('posts', 'App\Http\Controllers\Api\PostsController@index')->middleware('jwtAuth');
+Route::get('posts/search', 'App\Http\Controllers\Api\PostsController@search');
 Route::get('posts/{id}', 'App\Http\Controllers\Api\PostsController@show')->middleware('jwtAuth');
 
 //comments
@@ -83,10 +85,12 @@ Route::put('messages/{id}', 'App\Http\Controllers\Api\MessageController@update')
 
 //tasks
 Route::get('tasks', 'App\Http\Controllers\Api\TaskController@index')->middleware('jwtAuth');
+Route::get('tasks/room/{room_id}', 'App\Http\Controllers\Api\TaskController@tasksRoom')->middleware('jwtAuth');
 Route::get('tasks/{id}', 'App\Http\Controllers\Api\TaskController@show')->middleware('jwtAuth');
 Route::post('tasks', 'App\Http\Controllers\Api\TaskController@store');
 Route::delete('tasks/{id}', 'App\Http\Controllers\Api\TaskController@destroy')->middleware('jwtAuth');
 Route::put('tasks/{id}', 'App\Http\Controllers\Api\TaskController@update')->middleware('jwtAuth');
+Route::put('tasks/complete/{id}', 'App\Http\Controllers\Api\TaskController@taskComplete')->middleware('jwtAuth');
 
 
 Route::get('test', function() {

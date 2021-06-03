@@ -21,6 +21,7 @@ class CreateNotificationsTable extends Migration
             $table->string('link');
             $table->string('image');
             $table->integer('type');
+            $table->integer('isSeen');
             $table->timestamps();
         });
     }

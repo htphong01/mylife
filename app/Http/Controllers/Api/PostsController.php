@@ -139,4 +139,26 @@ class PostsController extends Controller
             'posts'=> $posts
         ]);
     }
+
+    public function search(Request $req) {
+        $key = $req->input('q');
+        $posts = Post::where('description', 'like', '%' .$key .'%')->orderBy('id','desc')->get();
+
+        foreach($posts as $post) {
+            // get user of post
+            $post->user;
+            //comment count
+            $post['commentsCount'] = count($post->comments);
+            //likes count
+            $post['likesCount'] = count($post->likes);
+            // check if user like his own post
+            $post['selfLike'] = false;
+
+        }
+
+        return response()->json([
+            'success' => true,
+            'posts' => $posts,
+        ]);
+    }
 }

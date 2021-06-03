@@ -49,7 +49,7 @@ class LikesController extends Controller
         $like->user_id = Auth::user()->id;
         $like->post_id = $request->post_id;
         $post = Post::find($request->post_id);
-        createNotification(3, $post->user_id);
+        createNotification(3, $post->user_id, $request->post_id );
         $like->save();
 
         return response([

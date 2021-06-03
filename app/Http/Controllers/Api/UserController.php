@@ -48,6 +48,32 @@ class UserController extends Controller
         ]);
     }
 
+    public function changeAvatar(Request $req) {
+        $user = User::find(Auth::user()->id);
+        $photo = '';
+        if($req->photo != '') {
+            $image = str_replace('data:image/jpeg;base64,', '', $req->photo);
+            $image = str_replace(' ', '+', $image);
+            $imageName = time().'.'.'jpg';
+            Storage::disk('store_profile')->put($imageName, base64_decode($image));
+            $user->avatar = 'store/profiles/' .$imageName;
+            $user->save();
+
+            $post = new Post();
+            $post->user_id = Auth::user()->id;
+            $post->description = 'Đã cập nhật ảnh đại diện';
+            $post->photo = 'store/profiles/' .$imageName;
+            $post->save();
+        }
+
+
+        return response()->json([
+            'success' => true,
+            'message' => $user->avatar
+        ]);
+        
+    }
+
     public function search(Request $req) {
         $key = $req->input('q');
         if(Auth::check()) {

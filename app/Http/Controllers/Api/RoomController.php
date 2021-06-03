@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 use App\Helpers\Helper;
 use Auth;
 use App\Models\Friend;
@@ -54,9 +55,20 @@ class RoomController extends Controller
             $room->messageTime = $message->created_at;
         }
 
+        $result =(array) Arr::sort($rooms, function($room)
+        {
+            // Sort the student's scores by their test score.
+            return $room->messageTime;
+        });
+        $arr = [];
+
+        foreach($result as $item) {
+            array_push($arr, $item);
+        }
+
         return response()->json([
             'success' => true,
-            'rooms' => $rooms
+            'rooms' => $arr
         ]);
     }
 

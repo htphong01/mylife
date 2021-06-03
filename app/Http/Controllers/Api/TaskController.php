@@ -66,10 +66,34 @@ class TaskController extends Controller
                         ->where('tasks.id', $id)
                         ->select('tasks.*', 'users.name as creater_name', 'users.avatar as creater_avatar')
                         ->get();
+        $task[0]->receiver_name = User::find($task[0]->receiver_id)->name;
+        $task[0]->receiver_avatar = User::find($task[0]->receiver_id)->avatar;
         return response()->json([
             'success' => true,
             'tasks' => $task
         ]);              
+    }
+
+    public function tasksRoom($room_id) {
+        $tasks = Task::join('users', 'users.id', 'tasks.creater_id')
+                        ->where([
+                                ['tasks.creater_id', Auth::user()->id],
+                                ['tasks.room_id', $room_id]
+                        ])->orWhere([
+                            ['tasks.receiver_id', Auth::user()->id],
+                            ['tasks.room_id', $room_id]
+                        ])
+                        ->select('tasks.*', 'users.name as creater_name', 'users.avatar as creater_avatar')
+                        ->orderBy('tasks.id', 'desc')
+                        ->get();
+        foreach($tasks as $task) {
+            $task->receiver_name = User::find($task->receiver_id)->name;
+            $task->receiver_avatar = User::find($task->receiver_id)->avatar;
+        }
+        return response()->json([
+            'success' => true,
+            'tasks' => $tasks
+        ]);      
     }
 
     /**
@@ -81,7 +105,40 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $task = Task::find($id);
+        $task->note = $request->note;
+        if($request->file != '') {
+            $image = str_replace('data:image/jpeg;base64,', '', $request->file);
+            $image = str_replace(' ', '+', $image);
+            $imageName = time().'.'.'jpg';
+            Storage::disk('store_task')->put($imageName, base64_decode($image));
+            $task->file = 'store/tasks/' .$imageName;
+        }
+        $task->submitted_at = date("Y-m-d H:i:s");
+        $task->isSubmitted = 2;
+        $task->save();
+        return response()->json([
+            "success" => true,
+            "message" => 'submit task success'
+        ]);
+    }
+
+    public function taskComplete($id) {
+        $task = Task::find($id);
+        if($task->isSubmitted == 1) {
+            return response()->json([
+                "success" => false,
+                "message" => 'task is not submitted'
+            ]);
+        } else {
+            $task->isCompleted = 2;
+            $task->save();
+            return response()->json([
+                "success" => true,
+                "message" => 'task is completed'
+            ]);
+        }
+
     }
 
     /**
