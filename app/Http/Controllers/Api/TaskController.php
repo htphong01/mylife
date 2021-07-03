@@ -9,6 +9,7 @@ use App\Helpers\Helper;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Room;
+use App\Models\Message;
 use Auth;
 
 class TaskController extends Controller
@@ -45,7 +46,16 @@ class TaskController extends Controller
             $task->title = $request->title;
             $task->deadline = date("Y-m-d H:i", strtotime($request->deadline));
             $task->save();
+            $message = new Message();
+            $message->room_id = $request->room_id;
+            $message->user_id = Auth::user()->id;
+            $message->message = 'đã giao một công việc mới';
+            $message->type = 'task/'.$task->id;
+            $message->save();
         }
+
+        
+        
 
         return response()->json([
             'success' => true,

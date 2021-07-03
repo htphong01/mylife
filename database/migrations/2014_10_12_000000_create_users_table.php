@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('cover')->default('store/covers/default.jpg');
             $table->integer('isActive')->default('1');
             $table->text('stringeeToken')->nullable();
+            $table->integer('role')->default('1');
             $table->rememberToken();
             $table->timestamps();
         });

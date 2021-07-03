@@ -431,8 +431,8 @@
       'private' => NULL,
       'passphrase' => NULL,
     ),
-    'ttl' => '86400',
-    'refresh_ttl' => 20160,
+    'ttl' => '864000',
+    'refresh_ttl' => 864000,
     'algo' => 'HS256',
     'required_claims' => 
     array (

@@ -72,7 +72,13 @@ class NotificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $notification = Notification::find($id);
+        $notification->isSeen = 2;
+        $notification->save();
+        return response()->json([
+            'success' => true,
+            'message' => 'notification is seen'
+        ]);
     }
 
     /**

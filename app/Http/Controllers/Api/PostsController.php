@@ -113,9 +113,14 @@ class PostsController extends Controller
     public function index(Request $req) {
         $user = $req->input('user');
         if($user == 'all' || $user == '') {
-            $posts = Post::orderBy('id', 'desc')->get();
+            $posts = Post::orderBy('id', 'desc')
+                        ->where('isActive', 1)
+                        ->get();
         } else {
-            $posts = Post::orderBy('id', 'desc')->where('user_id', $user)->get();
+            $posts = Post::orderBy('id', 'desc')
+                        ->where('isActive', 1)
+                        ->where('user_id', $user)
+                        ->get();
         }
         
         foreach($posts as $post) {

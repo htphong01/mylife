@@ -28,7 +28,6 @@ Route::get('search/user', 'App\Http\Controllers\Api\UserController@search');
 Route::get('get/user', 'App\Http\Controllers\Api\UserController@getUser');
 Route::put('user', 'App\Http\Controllers\Api\UserController@update')->middleware('jwtAuth');
 
-
 //posts
 Route::post('post', 'App\Http\Controllers\Api\PostsController@store')->middleware('jwtAuth');
 Route::delete('posts/{id}', 'App\Http\Controllers\Api\PostsController@destroy')->middleware('jwtAuth');
@@ -65,6 +64,7 @@ Route::put('friends/{id}', 'App\Http\Controllers\Api\FriendController@update')->
 Route::get('notifications', 'App\Http\Controllers\Api\NotificationController@index')->middleware('jwtAuth');
 Route::get('notifications/user', 'App\Http\Controllers\Api\NotificationController@showUser')->middleware('jwtAuth');
 Route::get('notifications/{id}', 'App\Http\Controllers\Api\NotificationController@show')->middleware('jwtAuth');
+Route::put('notifications/{id}', 'App\Http\Controllers\Api\NotificationController@update')->middleware('jwtAuth');
 Route::delete('notifications/{id}', 'App\Http\Controllers\Api\NotificationController@destroy')->middleware('jwtAuth');
 
 //rooms
@@ -91,6 +91,9 @@ Route::post('tasks', 'App\Http\Controllers\Api\TaskController@store');
 Route::delete('tasks/{id}', 'App\Http\Controllers\Api\TaskController@destroy')->middleware('jwtAuth');
 Route::put('tasks/{id}', 'App\Http\Controllers\Api\TaskController@update')->middleware('jwtAuth');
 Route::put('tasks/complete/{id}', 'App\Http\Controllers\Api\TaskController@taskComplete')->middleware('jwtAuth');
+
+Route::apiResource('/events', 'App\Http\Controllers\Api\EventController')->middleware('jwtAuth');
+Route::apiResource('/event-attenders', 'App\Http\Controllers\Api\EventAttenderController')->middleware('jwtAuth');
 
 
 Route::get('test', function() {

@@ -29,7 +29,9 @@ class CommentsController extends Controller
     }
 
     public function commentPost(Request $req) {
-        $comments = Comment::where('post_id', $req->post_id)->orderBy('id','desc')->get();
+        $comments = Comment::where('post_id', $req->post_id)
+                            ->where('isActive', 1)
+                            ->orderBy('id','desc')->get();
         foreach($comments as $comment){
             $comment->user;
         }
@@ -51,6 +53,7 @@ class CommentsController extends Controller
         $comment = new Comment();
         $comment->user_id = Auth::user()->id;
         $comment->post_id = $request->post_id;
+        $comment->parent_id = $request->parent_id;
         if($request->type == 'text') {
             $comment->comment = $request->comment;
         } else if($request->type == 'image') {

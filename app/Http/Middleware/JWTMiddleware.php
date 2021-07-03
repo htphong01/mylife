@@ -22,12 +22,18 @@ class JWTMiddleware
         try {
             JWTAuth::parseToken()->authenticate();
             return $next($request);
+        } catch(TokenExpiredException $e) {
+            return response()->json([
+                'success' => false,
+                'token' => JWTAuth::refresh(JWTAuth::getToken()),
+            ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
+                'token' => JWTAuth::refresh(JWTAuth::getToken()),
                 'message' => "Fail in login"
             ]);
-        }
+        } 
         return response()->json([
             'success' => true,
             'message' => $message

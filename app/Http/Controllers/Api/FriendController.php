@@ -96,11 +96,31 @@ class FriendController extends Controller
                             ['user_id2', '=', Auth::user()->id],
                             ['isAccept', '=', '2']
                         ])
+                        ->orderBy('id', 'desc')
+                        ->select('user_id1', 'user_id2', 'created_at', 'id')
                         ->get();
         foreach($friends as $friend) {
-            $friend->user1 = User::find($friend->user_id1);
-            $friend->user2 = User::find($friend->user_id2);
+            if($friend->user_id1 == Auth::user()->id) {
+                $friend->friend_id = $friend->user_id2;
+                $friend->friend_name = User::find($friend->user_id2)->name;
+                $friend->friend_avatar = User::find($friend->user_id2)->avatar;
+            } else {
+                $friend->friend_id = $friend->user_id1;
+                $friend->friend_name = User::find($friend->user_id1)->name;
+                $friend->friend_avatar = User::find($friend->user_id1)->avatar;
+            }
+
+            unset($friend->user_id1);
+            unset($friend->user_id2);
         }
+
+        if($friends->count() == 0) {
+            return response()->json([
+                'success' => false,
+                'friends' => $friends
+            ]);
+        }
+
         return response()->json([
             'success' => true,
             'friends' => $friends

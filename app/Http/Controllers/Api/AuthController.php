@@ -21,9 +21,21 @@ class AuthController extends Controller
     public function login(Request $req) {
         $creds = $req->only(['email', 'password']);
 
-        if(!$token = Auth::attempt($creds, ['exp' => Carbon::now()->addYears(2)->timestamp])) {
+        if(!$token = Auth::attempt($creds)) { 
             return response()->json([
-                'success' => false
+                'success' => false,
+                'message' => 'Thông tin đăng nhập không đúng'
+            ]);
+        }
+
+        $user = User::find(Auth::user()->id);
+        $user->remember_token = $token;
+        $user->save();
+
+        if($user->isActive == 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tài khoản của bạn hiện đang bị khóa'
             ]);
         }
 
